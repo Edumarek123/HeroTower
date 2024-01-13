@@ -9,9 +9,9 @@
 HeroClient *PLAYER;
 
 // CONFIGURACOES JANELA
-int WIDTH = 960;
-int HEIGHT = 960;
-int SCALE = 5;
+int WIDTH = 320 * 4;
+int HEIGHT = 320 * 4;
+int SCALE = 4;
 
 // SLD GLOBAIS
 SDL_Window *janela = nullptr;		  // cria uma variavel do tipo Window
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
 	inicializacao_SDL();
 
-	PLAYER = new HeroClient(0.2f, 0.1f);
+	PLAYER = new HeroClient(100.0f, 100.0f);
 
 	while (RODANDO)
 	{
@@ -105,6 +105,15 @@ void draw()
 {
 	// Limpa tela
 	SDL_RenderClear(renderizador);
+	SDL_Rect bordaE;
+	bordaE.x = 0;
+	bordaE.y = 0;
+	bordaE.w = WIDTH;
+	bordaE.h = HEIGHT;
+
+	SDL_SetRenderDrawColor(renderizador, 155, 155, 155, 255);
+	SDL_RenderDrawRect(renderizador, &bordaE);
+	SDL_RenderFillRect(renderizador, &bordaE);
 
 	PLAYER->draw(renderizador, SCALE);
 
