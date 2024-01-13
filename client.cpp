@@ -5,12 +5,13 @@
 
 #include "src/Client/HeroClient/HeroClient.hpp"
 
+// HeroClient *PLAYER;
 HeroClient *PLAYER;
 
 // CONFIGURACOES JANELA
-int WIDTH = 320;
-int HEIGHT = 320;
-int BORDA = 5;
+int WIDTH = 960;
+int HEIGHT = 960;
+int SCALE = 5;
 
 // SLD GLOBAIS
 SDL_Window *janela = nullptr;		  // cria uma variavel do tipo Window
@@ -18,7 +19,7 @@ SDL_Renderer *renderizador = nullptr; // cria uma variavel do tipo renderizador
 
 // VARIAVEIS GLOBAIS
 bool TELA_CHEIA = false, RODANDO = true;
-int STEPS = 0, FPS = 10, GERACAO_ATUAL = 0;
+int STEPS = 0, FPS = 60;
 
 // FUNCOES SDL
 void inicializacao_SDL();
@@ -39,7 +40,7 @@ int main(int argc, char *argv[])
 
 	inicializacao_SDL();
 
-	PLAYER = new HeroClient(0.1f, 0.1f);
+	PLAYER = new HeroClient(0.2f, 0.1f);
 
 	while (RODANDO)
 	{
@@ -74,7 +75,7 @@ void inicializacao_SDL()
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
 	SDL_SetWindowBordered(janela, SDL_TRUE);
 	SDL_SetRenderDrawBlendMode(renderizador, SDL_BLENDMODE_BLEND);
-	SDL_SetWindowTitle(janela, "Evolutionary Snake");
+	SDL_SetWindowTitle(janela, "Hero Tower");
 }
 
 void encerramento_SDL()
@@ -87,13 +88,13 @@ void encerramento_SDL()
 void update()
 {
 	STEPS++;
+
+	std::vector<Rect4> blocks;
+	PLAYER->update(blocks);
 }
 
 void input()
 {
-
-	std::vector<Rect4> blocks;
-	// PLAYER->update(blocks);
 	if (PLAYER->_controller._keys._pauseIsPressed)
 	{
 		RODANDO = false;
@@ -103,11 +104,9 @@ void input()
 void draw()
 {
 	// Limpa tela
-	// SDL_SetRenderDrawColor(renderizador, 0, 0, 0, 255);
 	SDL_RenderClear(renderizador);
-	std::vector<Rect4> blocks;
-	PLAYER->update(blocks);
-	// PLAYER->draw(renderizador, 0, 0, 5, true, 0);
+
+	PLAYER->draw(renderizador, SCALE);
 
 	// // Renderiza
 	SDL_RenderPresent(renderizador);
