@@ -1,17 +1,23 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 #include "src/Client/HeroClient/HeroClient.hpp"
+#include "src/Base/GameMap/GameMap.hpp"
 
 // HeroClient *PLAYER;
 HeroClient *PLAYER;
 
 // CONFIGURACOES JANELA
-int WIDTH = 320 * 4;
-int HEIGHT = 320 * 4;
 int SCALE = 4;
+int WIDTH = 320 * SCALE;
+int HEIGHT = 320 * SCALE;
+
+// MAP
+std::vector<bool> BLOCKS((WIDTH * HEIGHT) / (16 * 16), false);
+GameMap MAP(WIDTH / SCALE, HEIGHT / SCALE);
 
 // SLD GLOBAIS
 SDL_Window *janela = nullptr;		  // cria uma variavel do tipo Window
@@ -29,8 +35,6 @@ void encerramento_SDL();
 void update();
 void input();
 void draw();
-
-void cenario();
 
 // FUNCOES AUXILIARES
 
@@ -89,8 +93,7 @@ void update()
 {
 	STEPS++;
 
-	std::vector<Rect4> blocks;
-	PLAYER->update(blocks);
+	PLAYER->update(MAP._collisionBLocks);
 }
 
 void input()
@@ -114,6 +117,19 @@ void draw()
 	SDL_SetRenderDrawColor(renderizador, 155, 155, 155, 255);
 	SDL_RenderDrawRect(renderizador, &bordaE);
 	SDL_RenderFillRect(renderizador, &bordaE);
+
+	for (Rect4 block : MAP._collisionBLocks)
+	{
+		SDL_Rect b;
+		b.x = block.x * SCALE;
+		b.y = block.y * SCALE;
+		b.w = block.w * SCALE;
+		b.h = block.h * SCALE;
+
+		SDL_SetRenderDrawColor(renderizador, 155, 0, 0, 255);
+		SDL_RenderDrawRect(renderizador, &b);
+		SDL_RenderFillRect(renderizador, &b);
+	}
 
 	PLAYER->draw(renderizador, SCALE);
 
