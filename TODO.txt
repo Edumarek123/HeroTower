@@ -1,0 +1,76 @@
+STATS
+UNIQUE_INFO
+CLIENT_GAME
+HEALTH_BAR
+CLIENT_PROJECTILE
+
+To do:
+
+Hero:
+	- Add Actions (block, parry?)
+	
+Sprites: (4~5 frames per action)
+	Character: (Exploded Sprites to equip different equips types: {helmet, armor, gloveRL, legs})
+		-basic male
+		-basic female
+		Movements:
+			-idle
+			-run
+			-jump
+			-fall
+			-hit
+			-death
+			-win
+			-spawn/prep
+
+	Melee Weapons:
+		One handed:
+			-sword
+			-axe
+			-dagger
+			-hammer
+		Two handed:
+			-sword
+			-axe
+			-hammer
+			-spear /halberd
+	
+	Ranged Weapons: 
+		One handed:
+			-pistol
+		Two handed:
+			-bow / rifle
+
+	Off hand:
+		-shield
+
+	Spells: (energy = {fire, water, nature, air, darkness, light})
+		One handed:
+			-enchant 1h weapon with energy
+			-energy ball
+			-energy protection
+			-heal
+		Two handed:
+			-energy bean
+			-energy chain
+			-summon energy elemental
+			-great heal (target)
+
+		Special:
+			-conjure energy weapon (include bare hands)
+
+	Armor:
+		-helmet
+		-armor
+		-legs
+
+	Scenarios:
+		-Medieval castle
+		-Space
+		-Mountains
+		-Hell
+		-Forest
+		-Dungeon
+		-Medieval town center
+		-Desert
+		-Ship

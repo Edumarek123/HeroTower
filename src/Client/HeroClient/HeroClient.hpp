@@ -4,15 +4,21 @@
 #include "../../Base/Hero/Hero.hpp"
 #include "../PlayerController/PlayerController.hpp"
 #include "../HeroSprite/HeroSprite.hpp"
+#include "../WeaponSprite/WeaponSprite.hpp"
+#include "../HealthBarSprite/HealthBarSprite.hpp"
 #include "../../Base/Rect4/Rect4.hpp"
 
 class HeroClient : public Hero
 {
 public:
     PlayerController _controller;
-    HeroSprite _sprite;
 
-    HeroClient(float x, float y) : Hero(x, y) { _sprite._imagePath = "assets/Hero/hero"; }
+    HeroSprite _sprite;
+    HealthBarSprite _healthBarSprite;
+    WeaponSprite _weponRightSprite;
+    WeaponSprite _weponLeftSprite;
+
+    HeroClient(float x, float y);
     void update(const std::vector<Rect4> &blocks);
     void draw(SDL_Renderer *renderer, int scale);
 };

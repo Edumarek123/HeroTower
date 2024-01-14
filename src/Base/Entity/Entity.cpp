@@ -1,6 +1,12 @@
 #include "Entity.hpp"
 #include <cmath>
 
+Entity::Entity()
+{
+    _position.x = 0;
+    _position.y = 0;
+}
+
 Entity::Entity(float x, float y)
 {
     _position.x = x;

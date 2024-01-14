@@ -14,6 +14,7 @@ public:
     // atributes
     std::string _name = "Entity";
     // Stats _stats;
+    float _health = 0.6;
 
     // physics
     Vector2D _position;
@@ -28,6 +29,7 @@ public:
     bool _isFacingLeft = false;
 
     // constructor
+    Entity();
     Entity(float x, float y);
     ~Entity();
 

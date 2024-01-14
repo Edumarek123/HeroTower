@@ -7,21 +7,20 @@
 #include "../StateMachine/StateMachine.hpp"
 #include "../IdleState/IdleState.hpp"
 #include "../RunState/RunState.hpp"
+#include "../Weapons/Weapon.hpp"
 
 class Hero : public Entity
 {
 public:
     std::vector<std::string> _itens;
 
+    Weapon _rightHandWeapon;
+    Weapon _leftHandWeapon;
     StateMachine _stateMachine;
 
     PlayerKeys _keys;
 
-    Hero(float x, float y) : Entity(x, y)
-    {
-        _stateMachine.setState(new IdleState(&_stateMachine));
-        _stateMachine.setHero(this);
-    }
+    Hero(float x, float y);
 
     void update(const std::vector<Rect4> &blocks, PlayerKeys newKeys);
 };

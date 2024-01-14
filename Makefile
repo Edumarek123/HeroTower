@@ -5,16 +5,12 @@ OBJECTFILES = $(patsubst %.cpp, %.o, $(SOURCEFILES))
 TARGET = bin/client
 
 CXX = g++
-CXXFLAGS = -g -Wall 
+CXXFLAGS = -g -Wall
 SDLFLAGS = -lSDL2main -lSDL2 -lSDL2_image
 
-all: $(TARGET) run clean
+all: $(TARGET) run
 
-$(TARGET): $(OBJECTFILES)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(SDLFLAGS)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@ 
+build: $(TARGET)
 
 run: 
 	./$(TARGET)
@@ -22,6 +18,11 @@ run:
 leak: $(TARGET)
 	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -v ./$(TARGET)
 
+$(TARGET): $(OBJECTFILES)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(SDLFLAGS)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@ 
 
 .PHONY: clean
 clean:

@@ -11,12 +11,7 @@ public:
     Vector2D(float _x, float _y);
 
     // operators
-    Vector2D &operator+=(Vector2D const &v)
-    {
-        x += v.x;
-        y += v.y;
-        return *this;
-    }
+    Vector2D &operator+=(Vector2D const &v);
 };
 
 #endif

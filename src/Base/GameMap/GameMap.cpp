@@ -31,8 +31,6 @@ GameMap::GameMap(int screenWidth, int screenHeight)
     _collisionBLocks.emplace_back(block);
     block.y = 7 * 32;
     _collisionBLocks.emplace_back(block);
-    block.y = 6 * 32;
-    _collisionBLocks.emplace_back(block);
     block.y = 8 * 32;
     block.x = 4 * 32;
     _collisionBLocks.emplace_back(block);
