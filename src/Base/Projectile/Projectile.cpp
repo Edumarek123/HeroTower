@@ -3,7 +3,7 @@
 Projectile::Projectile(const Entity &e)
 {
     _position.x = e._position.x;
-    _position.y = e._position.y;
+    _position.y = e._position.y - 1;
 
     _isFacingLeft = e._isFacingLeft;
 }

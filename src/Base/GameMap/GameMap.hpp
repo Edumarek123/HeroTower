@@ -3,7 +3,7 @@
 
 #include <vector>
 
-class Rect4;
+#include "../Rect4/Rect4.hpp"
 
 class GameMap
 {

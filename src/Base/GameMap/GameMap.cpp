@@ -1,37 +1,22 @@
 #include "GameMap.hpp"
-#include "../Rect4/Rect4.hpp"
 #include <iostream>
+#include "../Sizes/Sizes.hpp"
 
 GameMap::GameMap(int screenWidth, int screenHeight)
 {
     // _collisionBLocks = collisionBLocks;
 
-    for (int i = 0; i < screenHeight / 32; i++)
+    for (int i = 0; i < screenHeight / TILE_SIZE.y; i++)
     {
-        for (int j = 0; j < screenWidth / 32; j++)
+        for (int j = 0; j < screenWidth / TILE_SIZE.x; j++)
         {
-            Rect4 block = Rect4(j * 32, i * 32, 32, 32);
+            Rect4 block = Rect4(j * TILE_SIZE.x, i * TILE_SIZE.y, TILE_SIZE.x, TILE_SIZE.y);
 
-            if (i == (screenHeight / 32) - 1)
+            if (i == (screenHeight / TILE_SIZE.y) - 1)
             {
 
                 _collisionBLocks.emplace_back(block);
             }
         }
     }
-    Rect4 block = Rect4(0, 8 * 32, 32, 32);
-    _collisionBLocks.emplace_back(block);
-    block.y = 7 * 32;
-    _collisionBLocks.emplace_back(block);
-    block.y = 6 * 32;
-    _collisionBLocks.emplace_back(block);
-
-    block.y = 8 * 32;
-    block.x = 3 * 32;
-    _collisionBLocks.emplace_back(block);
-    block.y = 7 * 32;
-    _collisionBLocks.emplace_back(block);
-    block.y = 8 * 32;
-    block.x = 4 * 32;
-    _collisionBLocks.emplace_back(block);
 }

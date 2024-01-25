@@ -9,7 +9,6 @@ CXXFLAGS = -g -Wall
 SDLFLAGS = -lSDL2main -lSDL2 -lSDL2_image
 
 all: $(TARGET) run
-
 build: $(TARGET)
 
 run: 
@@ -27,6 +26,7 @@ $(TARGET): $(OBJECTFILES)
 .PHONY: clean
 clean:
 	rm -f $(OBJECTFILES) $(TARGET) 
+	clear
 
 
 
