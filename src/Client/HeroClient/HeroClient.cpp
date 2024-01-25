@@ -18,8 +18,7 @@ void HeroClient::draw(SDL_Renderer *renderer, int scale)
     _healthBarSprite.draw(renderer, _position, scale, _health);
 }
 
-void HeroClient::update(const std::vector<Rect4> &blocks)
+void HeroClient::update(const std::vector<Rect4> &blocks, PlayerKeys newKeys)
 {
-    _controller.update();
-    this->Hero::update(blocks, _controller._keys);
+    this->Hero::update(blocks, newKeys);
 }

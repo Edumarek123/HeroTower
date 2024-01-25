@@ -1,4 +1,5 @@
 #include "PlayerController.hpp"
+#include <SDL2/SDL.h>
 
 PlayerController::PlayerController()
 {

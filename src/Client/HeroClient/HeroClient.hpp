@@ -2,7 +2,6 @@
 #define HEROCLIENT_HPP
 
 #include "../../Base/Hero/Hero.hpp"
-#include "../PlayerController/PlayerController.hpp"
 #include "../HeroSprite/HeroSprite.hpp"
 #include "../WeaponSprite/WeaponSprite.hpp"
 #include "../HealthBarSprite/HealthBarSprite.hpp"
@@ -11,15 +10,13 @@
 class HeroClient : public Hero
 {
 public:
-    PlayerController _controller;
-
     HeroSprite _sprite;
     HealthBarSprite _healthBarSprite;
     WeaponSprite _weponRightSprite;
     WeaponSprite _weponLeftSprite;
 
     HeroClient(float x, float y);
-    void update(const std::vector<Rect4> &blocks);
+    void update(const std::vector<Rect4> &blocks, PlayerKeys newKeys);
     void draw(SDL_Renderer *renderer, int scale);
 };
 

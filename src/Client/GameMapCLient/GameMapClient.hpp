@@ -14,7 +14,7 @@ public:
     std::string _imagePath;
     SDL_Texture *_spriteImage;
 
-    GameMapClient(int screenWidth, int screenHeight, SDL_Renderer *renderer);
+    GameMapClient(SDL_Renderer *renderer);
 
     void draw(SDL_Renderer *renderer, int x, int y, int scale);
 };

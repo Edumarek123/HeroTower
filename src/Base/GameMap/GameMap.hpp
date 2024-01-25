@@ -10,7 +10,7 @@ class GameMap
 public:
     std::vector<Rect4> _collisionBLocks;
 
-    GameMap(int screenWidth, int screenHeight);
+    GameMap();
 };
 
 #endif

@@ -1,33 +1,38 @@
 #include <iostream>
-#include <string>
 #include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <cmath>
 
+#include "src/Client/PlayerController/PlayerController.hpp"
 #include "src/Client/HeroClient/HeroClient.hpp"
 #include "src/Client/ProjectileClient/ProjectileClient.hpp"
 #include "src/Client/GameMapCLient/GameMapClient.hpp"
+#include "src/Base/Sizes/Sizes.hpp"
 
 // CONFIGURACOES JANELA
 int SCALE = 3;
-int WIDTH = 16 * 50 * SCALE;
-int HEIGHT = 9 * 50 * SCALE;
+int WIDTH = SCREEN_SIZE.x * SCALE;
+int HEIGHT = SCREEN_SIZE.y * SCALE;
 
 // SLD GLOBAIS
-SDL_Window *janela = nullptr;		  // cria uma variavel do tipo Window
-SDL_Renderer *renderizador = nullptr; // cria uma variavel do tipo renderizador
+SDL_Window *window = nullptr;	  // cria uma variavel do tipo Window
+SDL_Renderer *renderer = nullptr; // cria uma variavel do tipo renderer
+bool TELA_CHEIA = false;
+const int FPS = 60;
 
-// MAP
-std::vector<bool> BLOCKS(((WIDTH / SCALE) * (HEIGHT / SCALE)) / (16 * 9), false);
+// MAP AUXS
+const int TILE_NUMBER = SCREEN_SIZE.x * SCREEN_SIZE.y / (TILE_SIZE.x * TILE_SIZE.y);
+std::vector<bool> BLOCKS(TILE_NUMBER, false);
+
+// GAME OBJECTS
 GameMapClient *MAP;
-
-// HeroClient *PLAYER;
+PlayerController CONTROLLER;
 HeroClient *PLAYER;
 std::vector<ProjectileClient> PROJECTILES;
 
 // VARIAVEIS GLOBAIS
-bool TELA_CHEIA = false, RODANDO = true;
-int STEPS = 0, FPS = 60;
+bool RODANDO = true;
 
 // FUNCOES SDL
 void inicializacao_SDL();
@@ -47,7 +52,7 @@ int main(int argc, char *argv[])
 	inicializacao_SDL();
 
 	PLAYER = new HeroClient(0.0f, 0.0f);
-	MAP = new GameMapClient(WIDTH / SCALE, HEIGHT / SCALE, renderizador);
+	MAP = new GameMapClient(renderer);
 
 	while (RODANDO)
 	{
@@ -73,31 +78,40 @@ void inicializacao_SDL()
 		std::cout << "Erro encontrado:  " << SDL_GetError() << std::endl;
 	if (TELA_CHEIA)
 	{
-		// WIDTH = 2560;
-		// HEIGHT = 1600;
-		// SCALE = WIDTH / 16;
-		SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP, &janela, &renderizador);
+		SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, SDL_WINDOW_FULLSCREEN_DESKTOP, &window, &renderer);
 	}
 	else
-		SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, SDL_WINDOW_SHOWN, &janela, &renderizador);
-	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "2");
-	SDL_SetWindowBordered(janela, SDL_TRUE);
-	SDL_SetRenderDrawBlendMode(renderizador, SDL_BLENDMODE_BLEND);
-	SDL_SetWindowTitle(janela, "Hero Tower");
+	{
+		SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, SDL_WINDOW_SHOWN, &window, &renderer);
+	}
+
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+	SDL_SetWindowTitle(window, "Hero Tower");
+
+	/*
+	SDL_DisplayMode DM;
+	int w, h;
+	SDL_GetRendererOutputSize(renderer, &w, &h);
+	std::cout << "WIDTH: " << w << " HEIGHT: " << h << std::endl;
+	SDL_GetCurrentDisplayMode(0, &DM);
+	std::cout << "WIDTH: " << DM.w << " HEIGHT: " << DM.h << std::endl;
+
+	std::cout << "EXTRA - WIDTH: " << DM.w % (int)SCREEN_SIZE.x << " EXTRA - HEIGHT: " << DM.h % (int)SCREEN_SIZE.y << std::endl;
+	std::cout << "MAX - WIDTH: " << std::floor((float)DM.w / SCREEN_SIZE.x) << " MAX - HEIGHT: " << std::floor((float)DM.h / SCREEN_SIZE.y) << std::endl;
+	*/
 }
 
 void encerramento_SDL()
 {
-	SDL_DestroyWindow(janela);
-	SDL_DestroyRenderer(renderizador);
+	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
 }
 
 void update()
 {
-	STEPS++;
-
-	PLAYER->update(MAP->_collisionBLocks);
+	PLAYER->update(MAP->_collisionBLocks, CONTROLLER._keys);
 
 	for (int i = 0; i < (int)PROJECTILES.size(); i++)
 	{
@@ -115,12 +129,14 @@ void update()
 
 void input()
 {
-	if (PLAYER->_controller._keys._pauseIsPressed)
+	CONTROLLER.update();
+
+	if (CONTROLLER._keys._pauseIsPressed)
 	{
 		RODANDO = false;
 	}
 
-	if (PLAYER->_controller._keys._n1IsPressed)
+	if (CONTROLLER._keys._n1IsPressed)
 	{
 		PROJECTILES.push_back(ProjectileClient(*PLAYER));
 	}
@@ -129,40 +145,18 @@ void input()
 void draw()
 {
 	// Limpa tela
-	SDL_RenderClear(renderizador);
+	SDL_RenderClear(renderer);
+	SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255); // bota rosa para debug
 
-	SDL_Rect bordaE;
-	bordaE.x = 0;
-	bordaE.y = 0;
-	bordaE.w = WIDTH;
-	bordaE.h = HEIGHT;
-
-	SDL_SetRenderDrawColor(renderizador, 34, 35, 35, 255);
-	SDL_RenderDrawRect(renderizador, &bordaE);
-	SDL_RenderFillRect(renderizador, &bordaE);
-
-	MAP->draw(renderizador, PLAYER->_position.x, PLAYER->_position.y, SCALE);
-
-	for (Rect4 block : MAP->_collisionBLocks)
-	{
-		SDL_Rect b;
-		b.x = block.x * SCALE;
-		b.y = block.y * SCALE;
-		b.w = block.w * SCALE;
-		b.h = block.h * SCALE;
-
-		SDL_SetRenderDrawColor(renderizador, 155, 0, 0, 255);
-		SDL_RenderDrawRect(renderizador, &b);
-		SDL_RenderFillRect(renderizador, &b);
-	}
+	MAP->draw(renderer, PLAYER->_position.x, PLAYER->_position.y, SCALE);
 
 	for (ProjectileClient projectile : PROJECTILES)
 	{
-		projectile.draw(renderizador, SCALE);
+		projectile.draw(renderer, SCALE);
 	}
-	PLAYER->draw(renderizador, SCALE);
-	SDL_SetRenderDrawColor(renderizador, 0, 0, 0, 255);
+
+	PLAYER->draw(renderer, SCALE);
 
 	// // Renderiza
-	SDL_RenderPresent(renderizador);
+	SDL_RenderPresent(renderer);
 }

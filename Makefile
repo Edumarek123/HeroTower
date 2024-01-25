@@ -26,7 +26,5 @@ $(TARGET): $(OBJECTFILES)
 .PHONY: clean
 clean:
 	rm -f $(OBJECTFILES) $(TARGET) 
-	clear
-
 
 
