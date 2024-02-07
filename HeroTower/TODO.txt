@@ -1,0 +1,124 @@
+------------------------------TO DOs------------------------------
+
+
+------------------------------GAME CONTET------------------------------
+ESPORTS:
+	- Rank system;
+	- Open Championships with buy in for top classfications rewards
+	- Open Championships each month for classification
+	- Anual or Semestral Esport Championships for classified only
+
+PVP Game modes:
+	- Battle Royale (N players | M teamns with N / M players each | each player with 1 life | till one team / player is left) [M = {1, 2, 5}, N = 50?] {Rank | Esport!}
+	- Boss Battle 5x5 (5 players each team | each player with X lifes | till one team is eliminated or boss defeated) {Rank | Esport?}
+	- Arena 2x2 (2 players each team with | each player 1 life | till one team is eliminated) {Rank |Esport?}
+	- Arena 1x1 (1 players each team with | each player 1 life | till one team is eliminated) {Rank | Esport?}
+
+PVE Game modes:
+	- Invasion Survival (N players | each player 1 life | till every one is dead | every 10 round boss fight) [1 <= N <= 5] {Leaderboard}
+
+Gameplay:
+	- Weapon system
+	- Spell system (water > fire > nature > air || darkness > light)?
+	- Armor system (heavy, light, magic?)
+	- Atributte system (force, dexterity, intelligence) => (health, energy, capacity, mass, weaponSlots, spellSlots)
+	- Damage system (physic => weapon x armor | magic => spell x armor? + intelligence? + spellProtection)
+
+Monsters:
+	-Define monster races
+
+------------------------------GAME CODE------------------------------
+Hero:
+	- Add Actions (atks, spells, block, parry?)
+
+Map:
+
+Client:
+	- Responsive window
+	- Video Settings
+	- Wrap Match inside class
+	- Create Menu
+	- Create FSM for Menu, Match, Loadings and etc..
+	- Login / Register
+
+SOCKET:
+	- Add se/de rialization
+	- Create a struc with multi header and etc
+	- Define data per header
+	- Add drop from plataform
+
+Server:
+	- Add log file from match
+
+------------------------------GAME ART------------------------------
+Color Pallets:
+	- Define color choises strategy
+
+Sprites: (6~8 frames per action)
+	Character: (Exploded Sprites to equip different equips types: {helmet, armor, gloveRL, legs})
+		-basic male
+		-basic female
+		Movements:
+			-idle
+			-run
+			-jump
+			-fall
+			-hit
+			-death
+			-win
+			-spawn/prep
+			-attacks
+			-spells
+
+	Melee Weapons:
+		One handed:
+			-sword
+			-axe
+			-dagger
+			-hammer
+		Two handed:
+			-sword
+			-axe
+			-hammer
+			-spear /halberd
+	
+	Ranged Weapons: 
+		One handed:
+			-pistol
+		Two handed:
+			-bow / rifle
+
+	Off hand:
+		-shield
+
+	Spells: (energy = {fire, water, nature, air, darkness, light})
+		One handed:
+			-enchant 1h weapon with energy
+			-energy ball
+			-energy protection
+			-heal
+		Two handed:
+			-energy bean
+			-energy chain
+			-summon energy elemental
+			-great heal (target)
+
+		Special:
+			-conjure energy weapon (include bare hands)
+
+	Armor:
+		-helmet
+		-armor
+		-legs
+
+	Scenarios 3200 x 1800, 16:9 * 50x * 4x:
+		-Medieval castle
+		-Space
+		-Mountains
+		-Hell
+		-Forest
+		-Dungeon
+		-Medieval town center
+		-Desert
+		-Ship
+		-Caves
