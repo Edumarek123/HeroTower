@@ -1,0 +1,35 @@
+.PHONY: all
+
+SOURCEFILES = $(shell find -type f -regex ".*\.cpp")
+OBJECTFILES = $(patsubst %.cpp, %.o, $(SOURCEFILES))
+TARGET = main
+
+CXX = g++
+CXXFLAGS = -g -Wall
+SDLFLAGS = -lSDL2main -lSDL2 -lSDL2_image
+NETFLAGS = -lenet
+
+all: clean build run
+
+build: $(TARGET)
+
+run: 
+	./$(TARGET)
+
+leak: $(TARGET)
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -v ./$(TARGET)
+
+debug:
+	gdb ./$(TARGET)
+
+$(TARGET): $(OBJECTFILES)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@ 
+
+.PHONY: clean
+clean:
+	rm -f $(OBJECTFILES) $(TARGET) 
+
+
