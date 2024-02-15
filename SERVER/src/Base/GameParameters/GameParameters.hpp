@@ -1,7 +1,0 @@
-#ifndef GAMEPARAMETERS_HPP
-#define GAMEPARAMETERS_HPP
-
-#define MAX_PLAYERS 5
-#define BLOCKS_NUMBER 100
-
-#endif
