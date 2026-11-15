@@ -2,7 +2,7 @@
 
 # HeroTower
 
-**A fantasy multiplayer game project with competitive PvP and cooperative PvE modes.**
+**A fantasy multiplayer game concept spanning competitive arenas and cooperative survival.**
 
 ![Engine](https://img.shields.io/badge/engine-Godot-478CBF?logo=godotengine&logoColor=white)
 ![Genre](https://img.shields.io/badge/genre-fantasy%20action-6f42c1)
@@ -11,73 +11,84 @@
 
 </div>
 
-## Overview
+## Contents
 
-HeroTower is a fantasy game-development project whose planning notes describe competitive arenas, team-based boss battles, battle royale, and cooperative survival. The design also covers character equipment, weapons, spells, attributes, and combat.
+- [Project overview](#project-overview)
+- [Game modes](#game-modes)
+- [Gameplay systems](#gameplay-systems)
+- [Art and content direction](#art-and-content-direction)
+- [Project structure](#project-structure)
+- [Open the project](#open-the-project)
+- [Development roadmap](#development-roadmap)
+- [Current status](#current-status)
+- [License](#license)
 
-The repository currently contains a Godot project directory and a development/design backlog. The modes and systems described here are planning material unless their implementation can be confirmed in the current build.
+## Project overview
 
-## Planned game modes
+HeroTower is a fantasy game-development project whose design backlog describes competitive PvP modes and cooperative PvE survival. Its planned systems include weapons, spells, armor, character attributes, damage calculations, monsters, and multiplayer-oriented features.
+
+The repository currently contains a Godot project directory and a design/development backlog. Features described below are planned unless they can be confirmed in the current game build.
+
+## Game modes
 
 ### Player versus Player
 
-| Mode | Design outline |
+| Mode | Planned format |
 |---|---|
-| Battle Royale | Multiple players or teams, with one life per player |
-| Boss Battle 5v5 | Two teams fight while dealing with a boss encounter |
-| Arena 2v2 | Small-team elimination match |
-| Arena 1v1 | Duel between two players |
+| Battle Royale | Multiple players or teams; last player/team standing |
+| Boss Battle 5v5 | Two teams compete around a boss encounter |
+| Arena 2v2 | Small-team elimination |
+| Arena 1v1 | Duel |
 
 ### Player versus Environment
 
-- **Invasion Survival:** cooperative survival for a small group, with escalating waves and periodic boss encounters.
+- **Invasion Survival:** cooperative survival for up to five players, with escalating waves and a boss encounter every ten rounds.
 
-The planning notes also mention rankings, recurring championships, and competitive reward structures.
+The backlog also describes ranked play, monthly open championships, and larger seasonal or annual esports events.
 
 ## Gameplay systems
 
-The design backlog identifies the following systems:
+The design notes identify these areas:
 
 - Weapon and spell systems
-- Armor categories and equipment slots
+- Heavy, light, and magical armor categories
 - Character attributes and derived combat values
 - Physical and magical damage calculations
-- Attacks, defensive actions, and character abilities
+- Attacks, spells, blocking, and parrying
 - Monster races and enemy behavior
-- Menus, login, registration, and client settings
+- Login, registration, menus, settings, and match flow
 - Match logging and server-side support
 
-## Art direction
+## Art and content direction
 
-The art backlog describes modular character sprites and animations, including idle, run, jump, fall, hit, death, win, attacks, and spells. Planned environments include castles, mountains, forests, dungeons, deserts, caves, and other fantasy settings.
+The art backlog describes modular character sprites and animations, including idle, run, jump, fall, hit, death, win, attacks, and spells. Planned environments include castles, mountains, forests, dungeons, deserts, caves, and ships.
 
-## Repository structure
+## Project structure
 
 ```text
-.
-├── TileDungeon/  # Godot project directory
-└── TODO.txt      # Game design and development backlog
+HeroTower/
+├── TileDungeon/  # Godot project
+└── TODO.txt      # Design and development backlog
 ```
 
-## Getting started
-
-### Requirements
-
-- Godot Engine compatible with the project files
-
-### Open the project
+## Open the project
 
 1. Clone the repository.
-2. Open Godot Project Manager.
-3. Import or scan the `TileDungeon/` directory.
-4. Open the project and inspect its configured main scene.
+2. Install a Godot version compatible with the project files.
+3. Open Godot Project Manager.
+4. Import the `TileDungeon/` directory.
+5. Open the project and inspect its configured main scene.
 
-The repository does not currently document a release build or a complete server setup procedure.
+The repository does not currently document a release build, complete multiplayer server setup, or export pipeline.
 
-## Development status
+## Development roadmap
 
-The current README reflects the available project notes and backlog. It does not imply that the listed game modes, networking features, or progression systems are fully implemented.
+The [TODO.txt](TODO.txt) file is the primary source for planned gameplay, code, and art tasks.
+
+## Current status
+
+HeroTower should be presented as an in-development project with a design backlog. The planned modes, online features, and progression systems should not be described as released or complete without checking the current build.
 
 ## License
 
-No license file was identified in the repository. Contact the author before redistributing or reusing project materials.
+No `LICENSE` file is currently included. Unless a license is added, reuse and redistribution permissions are not granted by this repository.
